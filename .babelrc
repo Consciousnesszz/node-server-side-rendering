@@ -4,6 +4,8 @@
     "stage-0"
   ],
   "plugins": [
-
+    "add-module-exports",
+    "transform-runtime",
+    "transform-async-to-generator"
   ]
 }
