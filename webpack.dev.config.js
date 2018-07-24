@@ -3,11 +3,14 @@ const path = require('path');
 
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
-const hotReloadScript = 'webpack-hot-middleware/client';
-
 module.exports = {
   entry: {
-    index: ['./client/index.js', hotReloadScript],
+    index: [
+      'react-hot-loader/patch',
+      'webpack-hot-middleware/client',
+      'babel-polyfill',
+      './client/index.js',
+    ],
     vendor: ['react', 'react-dom', 'react-router', 'redux', 'react-redux'],
   },
   output: {
@@ -17,7 +20,6 @@ module.exports = {
   resolve: {
     extensions: ['.js', '.less'],
   },
-  devtool: 'source-map',
   module: {
     rules: [
       {
@@ -97,5 +99,10 @@ module.exports = {
       filename: './vendor.js',
     },
   },
+  devtool: 'source-map',
   mode: 'development',
+  devServer: {
+    // Enable webpack's Hot Module Replacement feature, tell the dev-server we're using HMR
+    hot: true,
+  },
 };
