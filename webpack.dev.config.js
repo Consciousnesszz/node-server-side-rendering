@@ -3,9 +3,11 @@ const path = require('path');
 
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
+const hotReloadScript = 'webpack-hot-middleware/client';
+
 module.exports = {
   entry: {
-    index: './client/index.js',
+    index: ['./client/index.js', hotReloadScript],
     vendor: ['react', 'react-dom', 'react-router', 'redux', 'react-redux'],
   },
   output: {
@@ -76,6 +78,9 @@ module.exports = {
   },
   plugins: [
     new HtmlWebpackPlugin({ template: './index.temp.html' }),
+    new webpack.optimize.OccurrenceOrderPlugin(),
+    new webpack.HotModuleReplacementPlugin(),
+    new webpack.NoEmitOnErrorsPlugin(),
     // new webpack.optimize.CommonsChunkPlugin({
     //   name: 'vendor',
     //   filename: './vendor.js',
@@ -92,4 +97,5 @@ module.exports = {
       filename: './vendor.js',
     },
   },
+  mode: 'development',
 };

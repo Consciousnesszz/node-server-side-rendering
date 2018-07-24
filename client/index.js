@@ -15,6 +15,12 @@ import { render } from 'react-dom';
 //     document.getElementById('root')
 //   );
 // });
+
+// 执行热更新模块下的 accept 函数，监听文件变化。
+if (module.hot) {
+  module.hot.accept();
+}
+
 render(
   <div>
     root
