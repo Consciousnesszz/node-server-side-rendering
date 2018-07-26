@@ -28,25 +28,32 @@ const views = require('koa-views'); // koa 模版引擎模块
 const devMiddleware = require('koa-webpack-dev-middleware'); // koa-webpack 自动刷新中间件
 const hotMiddleware = require('koa-webpack-hot-middleware');
 
-const server = require('./server.com.js');
+const app = require('./app.js');
 const config = require('../webpack.dev.config');
+const router = require('./router');
+const clientRender = require('./middleware/clientRender');
 
 const compiler = webpack(config); // 使用 webpack 生成编译器
 const port = process.env.port || 3000;
 
 // 将 html 模版转换为 ejs
-server.use(views(path.resolve(__dirname, '../index.temp.html'), { map: { html: 'ejs' } }));
+app.use(views(path.resolve(__dirname, '../index.temp.html')));
+
+// 使用 router 中间件
+app.use(clientRender);
+app.use(router.routes());
+app.use(router.allowedMethods());
 
 // 使用 koa-webpack 自动刷新中间件
-server.use(convert(devMiddleware(compiler, {
+app.use(convert(devMiddleware(compiler, {
   noInfo: true,
   publicPath: config.output.publicPath,
   stats: {
     colors: true,
   },
 })));
-server.use(convert(hotMiddleware(compiler)));
+app.use(convert(hotMiddleware(compiler)));
 
-server.listen(port, () => {
+app.listen(port, () => {
   console.log(`\n==> 🌎  Listening on port ${port}. Open up http://localhost:${port}/ in your browser.\n`);
 });
