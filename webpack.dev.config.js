@@ -11,7 +11,15 @@ module.exports = {
       'babel-polyfill',
       './client/index.js',
     ],
-    vendor: ['react', 'react-dom', 'react-router', 'redux', 'react-redux'],
+    vendor: [
+      'react',
+      'react-dom',
+      'react-router-dom',
+      'redux',
+      'react-redux',
+      'redux-actions',
+      'redux-promise',
+    ],
   },
   output: {
     filename: '[name].js',

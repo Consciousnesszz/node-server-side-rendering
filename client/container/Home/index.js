@@ -1,21 +1,34 @@
 import React, { Component } from 'react';
+import { connect } from 'redux';
+
+import { CHANGE_HOME_STATUS, ASYNC_CHANGE } from "../../store/types/home";
+
+@connect({
+  stateStatus(state) {
+    return state.status;
+  },
+}, {
+  changeStatus: CHANGE_HOME_STATUS,
+  changeAsync: ASYNC_CHANGE,
+})
 
 export default class Home extends Component {
-  state = {
-    content: 'home',
-  }
-
   handleContentChange = () => {
-    this.setState({
-      content: 'home content changed',
-    });
+    this.changeStatus('home status changed');
   }
 
   render() {
-    const { content } = this.state;
     return (
-      <div onClick={this.handleContentChange.bind(this)}>
-        {content}
+      <div>
+        <p>
+          {this.stateStatus}
+        </p>
+        <button type="button" onClick={this.handleContentChange}>
+          change home status
+        </button>
+        <button type="button" onClick={this.handleContentChange}>
+          change home status async
+        </button>
       </div>
     );
   }

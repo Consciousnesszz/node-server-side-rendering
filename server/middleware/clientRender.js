@@ -9,7 +9,6 @@ import App from '../../client/App';
 function clientRender(ctx) {
   const htmlData = fs.readFileSync(path.resolve('./template/index.dev.html'), 'utf-8');
   if (!htmlData) {
-    console.error('read err');
     return 404;
   }
 
