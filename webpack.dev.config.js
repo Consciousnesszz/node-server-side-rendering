@@ -26,9 +26,6 @@ module.exports = {
         test: /\.js$/, // js
         use: [{
           loader: 'babel-loader',
-          options: {
-            presets: ['es2015'],
-          },
         }],
         exclude: /node_modules/,
       }, {
@@ -79,7 +76,7 @@ module.exports = {
     ],
   },
   plugins: [
-    new HtmlWebpackPlugin({ template: './index.temp.html' }),
+    new HtmlWebpackPlugin({ template: './template/index.html' }),
     new webpack.optimize.OccurrenceOrderPlugin(),
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NoEmitOnErrorsPlugin(),
