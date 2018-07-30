@@ -10,7 +10,7 @@ import configStore from './store';
 const store = configStore();
 
 const render = Component => (
-  ReactDom.render((
+  ReactDom.hydrate((
     <AppContainer>
       <Provider store={store}>
         <BrowserRouter>

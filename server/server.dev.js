@@ -8,7 +8,13 @@ require('babel-polyfill');
 
 require('babel-register')({
   presets: ['es2015', 'react', 'stage-0'],
-  plugins: ['add-module-exports'],
+  plugins: [
+    'add-module-exports',
+    'transform-runtime',
+    'transform-async-to-generator',
+    'transform-decorators-legacy',
+    'transform-class-properties',
+  ],
 });
 
 const fs = require('fs');
