@@ -5,7 +5,7 @@ export default handleActions({
   [CHANGE_HOME_STATUS](state, action) {
     return {
       ...state,
-      status: action.statu,
+      status: action.payload,
     };
   },
   [ASYNC_CHANGE](state, action) {

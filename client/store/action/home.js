@@ -4,7 +4,7 @@ import { ASYNC_CHANGE } from '../types/home';
 export const asyncInc = createAction(ASYNC_CHANGE, () => {
   return new Promise(resolve => {
     setTimeout(() => {
-      resolve('async change')
+      resolve('async changed')
     }, 1000)
   });
 });
