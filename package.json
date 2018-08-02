@@ -16,10 +16,10 @@
   "scripts": {
     "dev:client": "cross-env NODE_ENV=development webpack-dev-server --open --progress --colors",
     "dev:server": "cross-env NODE_ENV=development nodemon ./server/server.dev.js --watch server --watch build",
-    "build": "npm run clean && cross-env NODE_ENV=production webpack --config ./build/webpack.prod.config.js --progress",
-    "clean": "rimraf ./dist/client/* && rimraf ./dist/server/* && rimraf ./views/prod/*",
+    "build": "npm run clean && cross-env NODE_ENV=production webpack --config ./webpack.prod.config.js --progress",
+    "clean": "rimraf ./build/client/* && rimraf ./build/server/*",
     "lint": "eslint . --ext .js",
-    "start": "node ./dist/server/server.js",
+    "start": "node ./build/server/server.js",
     "pm2": "pm2"
   },
   "dependencies": {
@@ -85,6 +85,7 @@
     "react-hot-loader": "^4.3.3",
     "redux-devtools": "^3.4.1",
     "style-loader": "^0.21.0",
+    "uglifyjs-webpack-plugin": "^1.2.7",
     "url-loader": "^1.0.1",
     "webpack": "^4.16.1",
     "webpack-cli": "^3.1.0",

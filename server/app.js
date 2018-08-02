@@ -6,13 +6,13 @@ import session from 'koa-session';
 import compress from 'koa-compress';
 import convert from 'koa-convert';
 
-const server = new Koa();
+const app = new Koa();
 
-server.keys = ['key'];
-server.use(convert(session(server)));
-server.use(compress());
-server.use(bodyParser());
-server.use(json());
-server.use(logger());
+app.keys = ['key'];
+app.use(convert(session(app)));
+app.use(compress());
+app.use(bodyParser());
+app.use(json());
+app.use(logger());
 
-export default server;
+export default app;

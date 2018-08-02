@@ -46,7 +46,7 @@ const port = process.env.port || 3000;
 // app.use(views(path.resolve(__dirname, '../index.temp.html')));
 
 // 使用 router 中间件
-// app.use(clientRender);
+app.use(clientRender);
 app.use(router.routes());
 app.use(router.allowedMethods());
 

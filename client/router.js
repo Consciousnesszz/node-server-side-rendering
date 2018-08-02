@@ -1,9 +1,7 @@
 import React, { Component } from 'react';
 import { Route, Switch, Link } from 'react-router-dom';
 
-import Home from './container/Home';
-import User from './container/User';
-import NoMatch from './container/NoMatch';
+import routerConf from './routerConf';
 
 export default class Router extends Component {
   render() {
@@ -23,9 +21,11 @@ export default class Router extends Component {
         </ul>
 
         <Switch>
-          <Route exact path="/" component={Home} />
-          <Route path="/user" component={User} />
-          <Route component={NoMatch} />
+          {
+            routerConf.map((item) => {
+              return <Route exact path={item.path} component={item.component} key={item.component} />;
+            })
+          }
         </Switch>
       </div>
     );

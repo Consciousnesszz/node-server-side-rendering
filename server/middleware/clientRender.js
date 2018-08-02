@@ -7,29 +7,47 @@ import { StaticRouter } from 'react-router-dom';
 
 import App from '../../client/App';
 import configStore from '../../client/store';
+import routerConf from '../../client/routerConf';
 
 const store = configStore();
+const tempPath = (
+  process.env.NODE_ENV === 'development'
+    ? './template/index.dev.html'
+    : './build/client/index.html'
+);
 
-function clientRender(ctx) {
-  const htmlData = fs.readFileSync(path.resolve('./template/index.dev.html'), 'utf-8');
-  if (!htmlData) {
-    return 404;
+async function clientRender(ctx, next) {
+  let pathMatch = false;
+  routerConf.forEach((item) => {
+    if (ctx.url === item.path) {
+      pathMatch = true;
+    }
+  });
+
+  if (pathMatch) {
+    const htmlData = fs.readFileSync(path.resolve(tempPath), 'utf-8');
+    if (!htmlData) {
+      ctx.body = 404;
+    }
+
+    const context = {};
+    // 使用 服务端渲染 函数
+    const html = renderToString(
+      <Provider store={store}>
+        <StaticRouter
+          location={ctx.url}
+          context={context}
+        >
+          <App />
+        </StaticRouter>
+      </Provider>
+    );
+
+    ctx.body = htmlData.replace('{{replace}}', html);
+  } else {
+    // 不调用 next 会找不到 js
+    await next();
   }
-
-  const context = {};
-  // 使用 服务端渲染 函数
-  const html = renderToString(
-    <Provider store={store}>
-      <StaticRouter
-        location={ctx.url}
-        context={context}
-      >
-        <App />
-      </StaticRouter>
-    </Provider>
-  );
-
-  return htmlData.replace('{{replace}}', html);
 }
 
 export default clientRender;
